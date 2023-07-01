@@ -1,0 +1,65 @@
+name: "AWS EC2 Spot Runner"
+description: "Create temporary GitHub Actions Runners on AWS EC2 Spot Instances"
+inputs:
+  aws-access-key-id:
+    description: "Your AWS Access Key ID"
+    required: true
+  aws-default-region:
+    description: "The default AWS Region, needed for the CLI"
+    default: "us-east-2"
+  aws-secret-access-key:
+    description: "Your AWS Secret Access Key"
+    required: true
+  dry-run:
+    description: "Whether or not do do a dry run (pretends to set up a runner but does not interact with AWS)"
+    default: "false"
+  ec2-ami:
+    description: "The ID of the AMI to use for the EC2 Spot Instance"
+    default: "ami-024e6efaf93d85776"
+  ec2-instance-type:
+    description: "The EC2 Instance Type to use for the EC2 Spot Instance"
+    default: "c5d.large"
+  ec2-keypair-name:
+    description: "The name of the pre-existing AWS keypair to use for the EC2 Spot Instance"
+  ec2-security-group-id:
+    description: "The pre-existing Security Group ID to use for the EC2 Spot Instance"
+  ec2-timeout:
+    description: "The number of seconds to wait before terminating the instance"
+    default: 3600
+  ec2-zone:
+    description: "The AWS EC2 Zone to deploy the Spot Instance to"
+    default: "us-east-2a"
+  ephemeral:
+    description: "If 'true', will unregister the runner after it runs a single job"
+    default: "true"
+  github-organization:
+    description: "If set, the GitHub Organization to attach the runner to (if NOT deploying to a GitHub github-Organization, use 'github-repo' instead!)"
+  github-repo:
+    description: "The repo to deploy the runner for; just pass through github.repository (if deploying to a GitHub Organization, use 'github-organization' instead!)"
+  github-token:
+    description: "Your GitHub Access Token with the 'repo' scope (repos) or 'admin:org' scope (Orgs). Must be a 'classic' token."
+  runner-arch:
+    description: "The architecture to use for the runner ('x64', 'arm', or 'arm64')"
+    default: "x64"
+  runner-version:
+    description: "The version of the GitHub Actions runner to use"
+    default: "latest"
+  shutdown-label:
+    description: "The label of the runner to shut down"
+  vm-user:
+    description: "The username of the non-root user in the VM"
+    default: "ubuntu"
+  volume-name:
+    description: "The name of the block device to provision. To mount on '/', this must match the AMI's root volume name!"
+    default: "/dev/sda1"
+  volume-size:
+    description: "The size, in GiBs, that 'volume-name' should be"
+    default: 32
+outputs:
+  label:
+    description: "The label of the temporary runner that was just deployed"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    INPUTS: ${{ toJson(inputs) }}

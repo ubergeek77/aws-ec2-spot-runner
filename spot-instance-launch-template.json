@@ -1,0 +1,20 @@
+{
+  "ImageId": "{{ EC2_AMI }}",
+  "KeyName": "{{ EC2_KEYPAIR }}",
+  "SecurityGroupIds": [
+    "{{ EC2_SG }}"
+  ],
+  "InstanceType": "{{ EC2_TYPE }}",
+  "UserData": "{{ EC2_USERDATA }}",
+  "Placement": {
+    "AvailabilityZone": "{{ EC2_ZONE }}"
+  },
+  "BlockDeviceMappings": [
+    {
+      "DeviceName": "{{ VOLUME_NAME }}",
+      "Ebs": {
+        "VolumeSize": {{ VOLUME_SIZE }}
+      }
+    }
+  ]
+}
