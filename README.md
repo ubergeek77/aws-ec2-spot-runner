@@ -160,7 +160,7 @@ I made this because there weren't any GitHub Actions that launched Runners on **
 
 - `label`:
   - The label of the temporary runner that was just deployed.
-  - Pass to `runs-to` to run jobs on the newly deployed Runner
+  - Pass to `runs-on` to run jobs on the newly deployed Runner
   - Pass this variable to this Action as `shutdown-label` to shut it down.
 
 ## Disclaimer
