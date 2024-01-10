@@ -15,7 +15,7 @@ inputs:
     default: "false"
   ec2-ami:
     description: "The ID of the AMI to use for the EC2 Spot Instance"
-    default: "ami-024e6efaf93d85776"
+    default: "ami-05fb0b8c1424f266b"
   ec2-instance-type:
     description: "The EC2 Instance Type to use for the EC2 Spot Instance"
     default: "c5d.large"
